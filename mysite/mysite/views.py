@@ -2,6 +2,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
+
 def Amitabh(request):
     return render(request, 'index.html')
 
@@ -12,15 +13,15 @@ def Amitabh(request):
 
 def analyz(request):
     #take text
-    dj= request.GET.get('text','default')
+    dj= request.POST.get('text','default')
     
     
     #check checkbox value
-    remove_punc= request.GET.get('removepunc','off')
-    upper= request.GET.get('upper','off')
-    newline= request.GET.get('newline','off')
-    spaceRemover= request.GET.get('ExtraSpaceRemover','off')
-    charcount= request.GET.get('CharacterCount','off')
+    remove_punc= request.POST.get('removepunc','off')
+    upper= request.POST.get('upper','off')
+    newline= request.POST.get('newline','off')
+    spaceRemover= request.POST.get('ExtraSpaceRemover','off')
+    charcount= request.POST.get('CharacterCount','off')
     
     
     
@@ -34,7 +35,7 @@ def analyz(request):
             if char not in punctuations:
                 analyzed= analyzed+char
                 
-        params={"purpose":"Removing Punctuation", "analyze_text":analyzed}
+        params={"comment":"Text is:-","purpose":"Removing Punctuation", "analyze_text":analyzed}
         return render(request, 'analyze.html', params)
     
     
@@ -47,7 +48,7 @@ def analyz(request):
         for char in dj:
             analyzed=analyzed+char.upper()
             
-        params={"purpose":"capatilizing ", "analyze_text":analyzed}
+        params={"comment":"Text is:-","purpose":"capatilizing ", "analyze_text":analyzed}
         return render(request, 'analyze.html', params)
     
     
@@ -57,10 +58,10 @@ def analyz(request):
     elif(newline=="on"):
         analyzed=""
         for char in dj:
-            if char!="\n":
+            if char!="\n" and char!="\r":
                 analyzed=analyzed+char
                 
-        params={"purpose":"Removing Newline", "analyze_text":analyzed}
+        params={"comment":"Text is:-","purpose":"Removing Newline", "analyze_text":analyzed}
         return render(request, 'analyze.html', params)
     
     
@@ -76,7 +77,7 @@ def analyz(request):
             else:
                 analyzed=analyzed+char
                  
-        params={"purpose":"Removing Extra Space", "analyze_text":analyzed}
+        params={"comment":"Text is:-","purpose":"Removing Extra Space", "analyze_text":analyzed}
         return render(request, 'analyze.html', params)
     
     
@@ -93,7 +94,7 @@ def analyz(request):
                 analyzed=analyzed+char
                 anal=(len(analyzed))
                  
-        params={"purpose":"Counting character present in Text", "analyze_text":anal}
+        params={"purpose":"Counting character present in Text", "analyze_text":anal,"char":"Character Count:-"}
         return render(request, 'analyze.html', params)
     
     
