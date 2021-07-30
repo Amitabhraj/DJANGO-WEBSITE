@@ -27,4 +27,3 @@ urlpatterns = [
 #     path('newline', views.newline,   name="this is newline function"),
 #     path('charcount', views.charcount,   name="this is charcount function")
 ]
-
