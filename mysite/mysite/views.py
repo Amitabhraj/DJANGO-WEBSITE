@@ -1,14 +1,10 @@
-'''i have created this file by own-Amitabh raj'''
+# I have created this file - Amitabh
 from django.http import HttpResponse
 from django.shortcuts import render
 
 
 def Amitabh(request):
     return render(request, 'index.html')
-
-
-# def about(request):
-#     return HttpResponse("about Amitabh Bhai <a href='http://127.0.0.1:8000/'><p>Back button</p></a>")
 
 
 def analyz(request):
@@ -22,12 +18,11 @@ def analyz(request):
     newline= request.POST.get('newline','off')
     spaceRemover= request.POST.get('ExtraSpaceRemover','off')
     charcount= request.POST.get('CharacterCount','off')
-    
-    
-    
-    
-    
-    #check which checkbox is on
+
+
+
+
+    #Check which checkbox is on
     if remove_punc=="on":
         punctuations = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
         analyzed=""
@@ -35,41 +30,35 @@ def analyz(request):
             if char not in punctuations:
                 analyzed= analyzed+char
                 
-        params={"comment":"Text is:-","purpose":"Removing Punctuation", "analyze_text":analyzed}
-        return render(request, 'analyze.html', params)
-    
-    
-    
-    
-    
-    
-    elif(upper=="on"):
+        params={"analyze_text":analyzed}
+        dj = analyzed
+
+
+
+
+    if(upper=="on"):
         analyzed=""
         for char in dj:
             analyzed=analyzed+char.upper()
             
-        params={"comment":"Text is:-","purpose":"capatilizing ", "analyze_text":analyzed}
-        return render(request, 'analyze.html', params)
-    
-    
-    
-    
-    
-    elif(newline=="on"):
+        params={"analyze_text":analyzed}
+        dj = analyzed
+
+
+
+
+    if(newline=="on"):
         analyzed=""
         for char in dj:
             if char!="\n" and char!="\r":
                 analyzed=analyzed+char
                 
-        params={"comment":"Text is:-","purpose":"Removing Newline", "analyze_text":analyzed}
-        return render(request, 'analyze.html', params)
-    
-    
-    
-    
-    
-    
-    elif(spaceRemover=="on"):
+        params={"analyze_text":analyzed}
+        dj = analyzed
+
+
+
+    if(spaceRemover=="on"):
         analyzed=""
         for index, char in enumerate(dj):
             if dj[index]==" " and dj[index+1]==" ":
@@ -77,15 +66,11 @@ def analyz(request):
             else:
                 analyzed=analyzed+char
                  
-        params={"comment":"Text is:-","purpose":"Removing Extra Space", "analyze_text":analyzed}
-        return render(request, 'analyze.html', params)
-    
-    
-    
-    
-    
-    
-    elif(charcount=="on"):
+        params={"analyze_text":analyzed}
+
+
+
+    if(charcount=="on"):
         analyzed=""
         for index, char in enumerate(dj):
             if dj[index]==" ":
@@ -93,32 +78,16 @@ def analyz(request):
             else:
                 analyzed=analyzed+char
                 anal=(len(analyzed))
-                 
-        params={"purpose":"Counting character present in Text", "analyze_text":anal,"char":"Character Count:-"}
-        return render(request, 'analyze.html', params)
-    
-    
-    
-    
-    
-    else:
-        return HttpResponse("<h1>ERROR</h1>")
+        params={"char":"Character Count:-","analyze_text":anal,}
+        dj=analyzed
+        
+        
+        
+
+    if(remove_punc != "on" and newline !="on" and spaceRemover!="on" and upper!="on" and charcount!="on"):
+        return HttpResponse("<h1>please select any operation and try again</h1>")
 
 
 
+    return render(request, 'analyze.html', params)
 
-
-# def capatilize_first(request):
-#     return HttpResponse("capatilize first <a href='http://127.0.0.1:8000/removepunc'><p>Back button</p></a>")
-# 
-# 
-# def space_remove(request):
-#     return HttpResponse("space remove<a href='http://127.0.0.1:8000/capatilize'><p>Back button</p></a>")
-# 
-# 
-# def newline(request):
-#     return HttpResponse("newline <a href='http://127.0.0.1:8000/spaceremove'><p>Back button</p></a>")
-# 
-# 
-# def charcount(request):
-#     return HttpResponse("charcount <a href='http://127.0.0.1:8000/newline'><p>Back button</p></a>")
